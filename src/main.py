@@ -37,6 +37,9 @@ if __name__ == '__main__':
     scenario_counts = prepare_scenario_counts(scenarios=scenarios_in_sequence)
     scenario_probability_mapping = prepare_probability_mapping(df_probabilities)
     scenario_to_beta_mapping = get_scenario_to_beta_mapping(scenarios_in_sequence, df_plr)
+
+    # TODO: this will need reworking to reduce complexity. In its current form,
+    #       we run out of memory (understandably)
     list_of_all_possible_combinations = get_list_of_all_possible_combinations_in_index_form(
         [scenario_counts[scenario] for scenario in scenarios_in_sequence_without_postfix])
 

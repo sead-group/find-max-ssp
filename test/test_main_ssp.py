@@ -1,6 +1,6 @@
 import unittest
 
-from utils.misc_functions import process_ssp
+from utils.misc_functions import process_ssp, get_list_of_all_possible_combinations_in_index_form
 
 
 class TestMainFunctions(unittest.TestCase):
@@ -8,6 +8,20 @@ class TestMainFunctions(unittest.TestCase):
     """
     This is a very basic placeholder test. More to come.
     """
+
+    def test_combo_generator(self):
+        expected_combos = [[0, 0, 0, 0],
+                           [0, 0, 0, 1],
+                           [0, 0, 0, 2],
+                           [0, 1, 0, 0],
+                           [0, 1, 0, 1],
+                           [0, 1, 0, 2]]
+
+        list_of_lengths_per_index = [1, 2, 1, 3]
+        combos = get_list_of_all_possible_combinations_in_index_form(list_of_lengths_per_index)
+
+        self.assertListEqual(combos, expected_combos)
+
     def test_ssp_calculation(self):
         some_combos = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],

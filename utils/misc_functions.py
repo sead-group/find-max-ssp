@@ -29,37 +29,26 @@ def get_u_plus_delta(comma_separated_string_form):
 
 def get_list_of_all_possible_combinations_in_index_form(list_of_lengths_per_index):
     """
-
     :param list_of_lengths_per_index: This is a list that looks something like: [1, 3, 1]
                                         meaning, the first element is only a single value, the next one has 3 possible
                                         values. For example, binary would be [2, 2, 2]
 
     :return: list_of_all_possible_combinations_in_index_form: Example:
-        ["0,0", "0,1", "1,0", "1,1"] (if input was binary)
-        ["0,0,0", "0,1,0", "0,2,0"] if input was [1, 3, 1]
+        [[0,0], [0,1], [1,0], [1,1]] (if input was binary)
+        [[0,0,0], [0,1,0], [0,2,0]] if input was [1, 3, 1]
     """
-    growing_list = []
-    for main_index in reversed(range(0, len(list_of_lengths_per_index))):
-        num_of_options = list_of_lengths_per_index[main_index]
-        current_options = [f"{i}" for i in range(0, num_of_options)]
+    non_string_list = []
 
-        # dump the current_options in a list (for reuse)
-        add_to_growing_list = []
-        for i in current_options:
-            # create "prefix,i,element" for element in growing_list
-            if growing_list:
-                add_to_growing_list = add_to_growing_list + [f"{i},{elem}" for elem in growing_list]
-            else:
-                add_to_growing_list = add_to_growing_list + [f"{i}"]
+    def generate_sequence_recursively(current_sequence, index):
+        if index == len(list_of_lengths_per_index):
+            non_string_list.append([int(i) for i in current_sequence])
+            return
 
-        growing_list = add_to_growing_list
+        for i in range(list_of_lengths_per_index[index]):
+            generate_sequence_recursively(current_sequence + str(i), index + 1)
 
-    non_string_growing_list = []
-    for entry in growing_list:
-        list_form = [int(elem) for elem in entry.split(',')]
-        non_string_growing_list.append(list_form)
-
-    return non_string_growing_list
+    generate_sequence_recursively("", 0)
+    return non_string_list
 
 
 def protect_against_zero(val):

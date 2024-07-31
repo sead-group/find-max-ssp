@@ -81,10 +81,11 @@ def process_ssp(list_of_of_all_possible_combinations,
                 scenarios_in_sequence_without_postfix,
                 scenario_probability_mapping,
                 scenario_to_beta_mapping,
-                print_all=False):
+                print_to_file=None, number_of_combos=0):
     combo_to_ssp = {}
     best_combo = None
     best_ssp = 0
+    progress = 0
     for combo in list_of_of_all_possible_combinations:
         # this is a list of indices
         # Go through the full combo, calculate the 'SSP'
@@ -100,10 +101,13 @@ def process_ssp(list_of_of_all_possible_combinations,
 
             ssp += probability * beta
 
-        # combo_to_ssp[str(combo)] = ssp
-        #
-        # if print_all:
-        #     print(f"{combo}: {ssp}")
+        progress += 1.0
+        print(f"{100*progress/number_of_combos} %")
+
+        # if print_to_file:
+        #     with open(print_to_file, 'a') as f:
+        #         f.write(f"{list_form_combo}: {ssp}")
+        #     print(f"{list_form_combo}: {ssp}")
 
         if ssp > best_ssp:
             # keep track of the best SSP so far

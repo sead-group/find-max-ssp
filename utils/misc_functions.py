@@ -102,7 +102,8 @@ def process_ssp(list_of_of_all_possible_combinations,
             ssp += probability * beta
 
         progress += 1.0
-        print(f"{100*progress/number_of_combos} %")
+        if number_of_combos:
+            print(f"{100*progress/number_of_combos} %")
 
         # if print_to_file:
         #     with open(print_to_file, 'a') as f:

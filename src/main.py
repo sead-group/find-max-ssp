@@ -27,6 +27,11 @@ def prepare_probability_mapping(df):
 if __name__ == '__main__':
     project_root = os.path.dirname(os.path.dirname(__file__))
     input_files_dir = os.path.join(project_root, 'input_files')
+
+    simple_mode = True      # set this to false, to try the full Markov model
+    if simple_mode:
+        input_files_dir = os.path.join(input_files_dir, 'simple')
+
     plr_excel_sheet = os.path.join(input_files_dir, 'plr_sheet.xlsx')
     probabilities_excel_sheet = os.path.join(input_files_dir, 'probabilities.xlsx')
 

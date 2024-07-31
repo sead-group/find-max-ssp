@@ -88,25 +88,26 @@ def process_ssp(list_of_of_all_possible_combinations,
     for combo in list_of_of_all_possible_combinations:
         # this is a list of indices
         # Go through the full combo, calculate the 'SSP'
+        list_form_combo = convert_combo_to_desired_format(combo)
         ssp = 0
         for index in range(0, len(scenarios_in_sequence_without_postfix)):
             # assemble state name:
             state_name_no_postfix = scenarios_in_sequence_without_postfix[index]
-            state_name = state_name_no_postfix + f"_{combo[index] + 1}"
+            state_name = state_name_no_postfix + f"_{list_form_combo[index] + 1}"
 
             probability = scenario_probability_mapping[state_name_no_postfix]
             beta = scenario_to_beta_mapping[state_name]
 
             ssp += probability * beta
 
-        combo_to_ssp[str(combo)] = ssp
-
-        if print_all:
-            print(f"{combo}: {ssp}")
+        # combo_to_ssp[str(combo)] = ssp
+        #
+        # if print_all:
+        #     print(f"{combo}: {ssp}")
 
         if ssp > best_ssp:
             # keep track of the best SSP so far
-            best_combo = combo
+            best_combo = list_form_combo
             best_ssp = ssp
 
     return combo_to_ssp, best_combo, best_ssp

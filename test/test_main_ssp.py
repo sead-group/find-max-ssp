@@ -1,6 +1,7 @@
 import unittest
 
-from utils.misc_functions import process_ssp, get_list_of_all_possible_combinations_in_index_form
+from utils.misc_functions import process_ssp, get_list_of_all_possible_combinations_in_index_form, \
+    convert_combo_to_desired_format
 
 
 class TestMainFunctions(unittest.TestCase):
@@ -18,7 +19,8 @@ class TestMainFunctions(unittest.TestCase):
                            [0, 1, 0, 2]]
 
         list_of_lengths_per_index = [1, 2, 1, 3]
-        combos = get_list_of_all_possible_combinations_in_index_form(list_of_lengths_per_index)
+        combo_generator = get_list_of_all_possible_combinations_in_index_form(list_of_lengths_per_index)
+        combos = [convert_combo_to_desired_format(i) for i in combo_generator]
 
         self.assertListEqual(combos, expected_combos)
 

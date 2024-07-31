@@ -41,14 +41,17 @@ def get_list_of_all_possible_combinations_in_index_form(list_of_lengths_per_inde
 
     def generate_sequence_recursively(current_sequence, index):
         if index == len(list_of_lengths_per_index):
-            non_string_list.append([int(i) for i in current_sequence])
-            return
+            yield current_sequence
+        else:
+            # Loop through the range of the current base
+            for i in range(list_of_lengths_per_index[index]):
+                yield from generate_sequence_recursively(current_sequence + str(i), index + 1)
 
-        for i in range(list_of_lengths_per_index[index]):
-            generate_sequence_recursively(current_sequence + str(i), index + 1)
+    return generate_sequence_recursively("", 0)
 
-    generate_sequence_recursively("", 0)
-    return non_string_list
+
+def convert_combo_to_desired_format(combo):
+    return [int(i) for i in combo]
 
 
 def protect_against_zero(val):
